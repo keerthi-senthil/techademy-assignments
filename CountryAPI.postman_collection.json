@@ -1,0 +1,91 @@
+{
+	"info": {
+		"_postman_id": "cea2c02d-787e-4242-a46e-fc40dd350013",
+		"name": "CountryAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "19285457"
+	},
+	"item": [
+		{
+			"name": "TestValidate",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"//positive\r",
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Contains country name 'India'\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"India\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Contains information for India\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const indiaCountry = jsonData.find(country => country.name.common === \"India\");\r",
+							"    pm.expect(indiaCountry).to.not.be.undefined;\r",
+							"    pm.expect(indiaCountry.region).to.equal(\"Asia\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Checks India with New Delhi as the capital\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const indiaCountry = jsonData.find(country => country.name.common === \"India\");\r",
+							"    pm.expect(indiaCountry.capital[0]).to.equal(\"New Delhi\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Indian currencies\", function () {\r",
+							"    const jsonData = pm.response.json();\r",
+							"    const indiaCountry = jsonData.find(country => country.name.common === \"India\");\r",
+							"    pm.expect(indiaCountry).to.not.be.undefined;\r",
+							"    pm.expect(indiaCountry.currencies.INR.name).to.eql(\"Indian rupee\");\r",
+							"    // console.log(indiaCountry.currencies.INR.symbol)\r",
+							"});\r",
+							"\r",
+							"// Negative\r",
+							"pm.test(\"Status code is 404 (Not Found)\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Contains an error message for an invalid country name\", function () {\r",
+							"    pm.expect(pm.response.text()).to.include(\"Not Found\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 400 (Bad Request)\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 401 (Unauthorized) for unauthorized access\", function () {\r",
+							"    pm.response.to.have.status(401);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Status code is 403 (Forbidden) for forbidden access\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://restcountries.com/v3.1/name/India",
+					"protocol": "https",
+					"host": [
+						"restcountries",
+						"com"
+					],
+					"path": [
+						"v3.1",
+						"name",
+						"India"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="AutomationAnywhereSuite">
+    <test name="LogoAndButtonTest" enabled="true">
+        <classes>
+            <class name="TestXpathWebElements"/>
+        </classes>
+    </test>
+    <test name="NavigationTest" enabled="true">
+        <classes>
+            <class name="TestXpathNavigation"/>
+        </classes>
+    </test>
+</suite>
